@@ -57,15 +57,37 @@
 
 
 ////無名関数
-var n_avg = function(){
-    var sum = 0;
-    for (var i=0, j= arguments.length; i<j; i++){
-        sum += arguments[i];
-    }
-    return sum /arguments.length;
+// var n_avg = function(){
+//     var sum = 0;
+//     for (var i=0, j= arguments.length; i<j; i++){
+//         sum += arguments[i];
+//     }
+//     return sum /arguments.length;
+// }
+
+// var r = n_avg(2,3,4,5);
+// console.log(r);
+
+////関数クラス
+////最新のJSにはclass構文もある。
+////オブジェクトのプロパティにはオブジェクトリテラルを使用する。
+////　→「ラベル:変数」
+
+//クラス関数
+function makePerson(first, last){
+    return {
+        first: first,
+        last: last
+    };
 }
 
-var r = n_avg(2,3,4,5);
-console.log(r);
+function personFullName(person){
+    return person.first + ' ' + person.last;
+}
+function personalFullNameReversed(person){
+    return person.last + ', ' + person.first;
+}
 
-
+var s = makePerson('TEST', 'TARO');
+console.log(personFullName(s));
+console.log(personalFullNameReversed(s));
