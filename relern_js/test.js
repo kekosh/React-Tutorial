@@ -74,20 +74,20 @@
 ////　→「ラベル:変数」
 
 //クラス関数
-function makePerson(first, last){
-    return {
-        first: first,
-        last: last
-    };
-}
+// function makePerson(first, last){
+//     return {
+//         first: first,
+//         last: last
+//     };
+// }
 
-function personFullName(person){
-    return person.first + ' ' + person.last;
-}
-function personalFullNameReversed(person){
-    return person.last + ', ' + person.first;
-}
+// function personFullName(person){
+//     return person.first + ' ' + person.last;
+// }
+// function personalFullNameReversed(person){
+//     return person.last + ', ' + person.first;
+// }
 
-var s = makePerson('TEST', 'TARO');
-console.log(personFullName(s));
-console.log(personalFullNameReversed(s));
+// var s = makePerson('TEST', 'TARO');
+// console.log(personFullName(s));
+// console.log(personalFullNameReversed(s));
