@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+/* 進捗状況メモ */
+/* 2019-10-17 Stateのリフトアップの途中*/
+
 class Square extends React.Component {
     constructor(props){
       super(props);
@@ -18,8 +21,12 @@ class Square extends React.Component {
   }
   
   class Board extends React.Component {
+      constructor(props){
+          super(props);
+          this.state = {squares: Array(9).fill(null)}
+      }
     renderSquare(i) {
-      return <Square />;
+      return <Square value={this.state.squares[i]}/>;
     }
   
     render() {
