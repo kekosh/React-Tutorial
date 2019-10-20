@@ -28,7 +28,30 @@ function Square(props){
         </button>
     )
 }
-  
+
+//勝者判定
+function calculateWinner(squares){
+  //勝利パターン配列
+  const lines = [
+    [0,1,2],
+    [3,4,5],
+    [6,7,8],
+    [0,3,6],
+    [1,4,7],
+    [2,5,8],
+    [0,4,8],
+    [2,4,6]
+  ];
+
+  for (let i=0; i<lines.length; i++){
+    const [a,b,c] = lines[i];
+    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]){
+      return squares[a];
+    }
+  }
+  return null;
+}
+
   class Board extends React.Component {
       constructor(props){
           super(props);
@@ -38,6 +61,12 @@ function Square(props){
     handleClick(i){
         //配列をコピー：array.slice()
         const squares = this.state.squares.slice();
+
+        //入力済みの場合は処理終了。現在値(or後半)比較をなくせば入力済みを変更可能
+        if (calculateWinner(squares)||squares[i]){ 
+          return;
+        }
+        
         squares[i] = this.state.xIsNext ? 'X' : '○';
         this.setState({squares: squares, xIsNext: !this.state.xIsNext});
     }
@@ -52,7 +81,15 @@ function Square(props){
     }
   
     render() {
-      const status ='Next player: ' + this.state.xIsNext ? 'X' : '○'
+      const winner = calculateWinner(this.state.squares);
+      let status;
+
+      if(winner){
+        status = 'Winner: ' + winner;
+      } else {
+        status = 'Next player: ' + (this.state.xIsNext ? 'X' : '○');
+      }
+
       return (
         <div>
           <div className="status">{status}</div>
