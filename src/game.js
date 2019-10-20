@@ -1,37 +1,58 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-/* 進捗状況メモ */
-/* 2019-10-17 Stateのリフトアップの途中*/
+// class Square extends React.Component {
+//     // constructor(props){
+//     //   super(props);
+//     //   this.state = {value: null};
+//     // }
 
-class Square extends React.Component {
-    constructor(props){
-      super(props);
-      this.state = {value: null};
-    }
+//     render() {
+//       return (
+//         <button 
+//         className="square"
+//         onClick= {() => {this.props.onClick()}}
+//         >
+//           {this.props.value}
+//         </button>
+//       );
+//     }
+//   }
 
-    render() {
-      return (
-        <button className="square" 
-                onClick={() => this.setState({value: 'X'})}>
-          {this.state.value}
+//Squareクラスを関数コンポーネントに変更
+//関数コンポーネント：renderメソッドのみでstateを持たないクラスをシンプルに書く
+function Square(props){
+    return(
+        <button className="square" onClick={props.onClick}>
+            {props.value}
         </button>
-      );
-    }
-  }
+    )
+}
   
   class Board extends React.Component {
       constructor(props){
           super(props);
-          this.state = {squares: Array(9).fill(null)}
+          this.state = {squares: Array(9).fill(null), xIsNext: true}
       }
+    
+    handleClick(i){
+        //配列をコピー：array.slice()
+        const squares = this.state.squares.slice();
+        squares[i] = this.state.xIsNext ? 'X' : '○';
+        this.setState({squares: squares, xIsNext: !this.state.xIsNext});
+    }
+
     renderSquare(i) {
-      return <Square value={this.state.squares[i]}/>;
+      return (
+        <Square 
+        value={this.state.squares[i]}
+        onClick={() => {this.handleClick(i)}}
+        />
+      );
     }
   
     render() {
-      const status = 'Next player: X';
-  
+      const status ='Next player: ' + this.state.xIsNext ? 'X' : '○'
       return (
         <div>
           <div className="status">{status}</div>
